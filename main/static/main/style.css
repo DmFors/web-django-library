@@ -1,0 +1,23 @@
+#content{
+    margin: 0 20% 0 20%;
+}
+
+
+aside{
+    float: left;
+    width: 15%;
+    height: 100vh;
+    background: #b3ffa3;
+}
+aside ul{
+    list-style: none;
+    padding: 0;
+}
+
+aside li{
+    margin: 10px 10px;
+}
+
+aside a{
+    width: 100%;
+}

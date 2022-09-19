@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block title %}Библиотека{% endblock %}
+{% block content %}
+    <h1>Библиотека</h1>
+    {% if books %}
+        {% for book in books %}
+            <div class="alert alert-primary book-card">
+                <h3>{{ book.name }}</h3>
+                Автор: {{ book.author }}<br>
+                Год издания: {{ book.publish_date }} г.<br>
+                Цена: {{ book.cost }} руб.<br>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-warning"><h3>В библиотеку еще не добавлено ни одной книги.</h3></div>
+    {% endif %}
+{% endblock %}
