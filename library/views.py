@@ -24,10 +24,10 @@ def add_book(request):
         'form': book_form,
         'error': error,
     }
-    return render(request, 'library/change_book.html', data)
+    return render(request, 'library/add_book.html', data)
 
 
 class BookUpdateView(UpdateView):
     model = models.Book
-    fields = ['name', 'author', 'cost', 'publish_year']
-    template_name = 'library/change_book.html'
+    template_name = 'library/update_book.html'
+    form_class = forms.BookForm

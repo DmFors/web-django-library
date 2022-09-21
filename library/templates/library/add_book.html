@@ -1,0 +1,14 @@
+{% extends 'library/change_book.html' %}
+
+{% block title %}Добавление книги{% endblock %}
+
+{% block form-body %}
+    <h1>Добавление книги</h1>
+    {% for field in form %}
+        {{ field }}<br>
+    {% endfor %}
+    <button type="submit" class="btn btn-success">Добавить книгу</button>
+    {% if error %}
+        <div class="alert alert-danger error">{{ error }}</div>
+    {% endif %}
+{% endblock %}
