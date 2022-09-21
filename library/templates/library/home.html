@@ -7,8 +7,9 @@
             <div class="alert alert-primary book-card">
                 <h3>{{ book.name }}</h3>
                 Автор: {{ book.author }}<br>
-                Год издания: {{ book.publish_date }} г.<br>
+                Год издания: {{ book.publish_year }} г.<br>
                 Цена: {{ book.cost }} руб.<br>
+                <a href="{% url 'update-book' book.id %}" class="btn btn-alert">Редактировать</a>
             </div>
         {% endfor %}
     {% else %}

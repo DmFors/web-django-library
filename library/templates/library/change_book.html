@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block title %}Добавление книги{% endblock %}
+{% block content %}
+    <h1>Добавление книги</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {% for param in form %}
+            {{ param }}<br>
+        {% endfor %}
+        <button type="submit" class="btn btn-success">Добавить книгу</button>
+        {% if error %}
+            <div class="alert alert-danger error">{{ error }}</div>
+        {% endif %}
+    </form>
+{% endblock %}
