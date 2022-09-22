@@ -33,3 +33,19 @@ form button{
 .book-card a{
     margin: 10px 0;
 }
+
+#pagination{
+    font-size: large;
+}
+
+#pagination .btn{
+    padding: 0.1em 0.4em;
+}
+
+#pagination #page-count{
+
+}
+
+#pagination #page-amount{
+    float: right;
+}

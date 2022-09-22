@@ -38,10 +38,9 @@ class BookListView(ListView):
     template_name = 'library/home.html'
 
     def get_paginate_by(self, queryset):
-        return self.request.GET.get("paginate_by", self.paginate_by)
-
-class PaginationChoice(Select):
-    pass
+        paginate = self.request.GET.get("paginate_by", self.paginate_by)
+        print(paginate)
+        return paginate
 
 
 class BookUpdateView(UpdateView):

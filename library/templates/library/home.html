@@ -16,21 +16,23 @@
         <div class="alert alert-warning"><h3>В библиотеку еще не добавлено ни одной книги.</h3></div>
     {% endfor %}
     </div>
-    <div>
-    {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}">prev</a>
-    {% endif %}
-    <span>
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-    </span>
-    {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">next</a>
-    {% endif %}
-        <select name="select-paginate" id=""></select>
-        <a href="?paginate_by=3">3</a>
-        <a href="?paginate_by=4">4</a>
+    <div id="pagination" class="alert alert-secondary">
+        <span id="page-count">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary"><</a>
+            {% endif %}
+            <span>
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">></a>
+            {% endif %}
+        </span>
+        <span id="page-amount">
+            Отобразить на странице:
+            <a href="?paginate_by=2" class="btn btn-secondary">2</a> <|>
+            <a href="?paginate_by=5" class="btn btn-secondary">5</a>
+        </span>
+
     </div>
-
-
-
 {% endblock %}

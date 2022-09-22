@@ -1,4 +1,4 @@
-from django.forms import ModelForm, TextInput, NumberInput
+from django.forms import ModelForm, TextInput, NumberInput, Form
 from .models import Book
 
 
@@ -24,4 +24,5 @@ class BookForm(ModelForm):
                 'placeholder': 'Год издания',
             }),
         }
+
 
