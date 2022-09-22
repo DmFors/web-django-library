@@ -24,3 +24,4 @@ class BookForm(ModelForm):
                 'placeholder': 'Год издания',
             }),
         }
+

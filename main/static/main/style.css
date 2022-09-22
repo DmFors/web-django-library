@@ -23,11 +23,13 @@ form {
     margin: 20px 0;
     text-align: center;
 }
-
+form * {
+    margin: 15px 0;
+}
 form button{
     width: 100%;
 }
 
-form .error{
-    margin: 20px 0;
+.book-card a{
+    margin: 10px 0;
 }
