@@ -19,13 +19,13 @@
     <div id="pagination" class="alert alert-secondary">
         <span id="page-count">
             {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary"><</a>
+            <a href="?paginate_by={{ paginator.per_page }}&page={{ page_obj.previous_page_number }}" class="btn btn-secondary"><</a>
             {% endif %}
             <span>
                 Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
             </span>
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">></a>
+                <a href="?paginate_by={{ paginator.per_page }}&page={{ page_obj.next_page_number }}" class="btn btn-secondary">></a>
             {% endif %}
         </span>
         <span id="page-amount">

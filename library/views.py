@@ -39,7 +39,6 @@ class BookListView(ListView):
 
     def get_paginate_by(self, queryset):
         paginate = self.request.GET.get("paginate_by", self.paginate_by)
-        print(paginate)
         return paginate
 
 
