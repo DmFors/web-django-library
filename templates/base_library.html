@@ -1,0 +1,30 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{% block title %}Библиотека{% endblock %}</title>
+
+    <script src="{% static 'library\bootstrap-5.2.2-dist\js\bootstrap.bundle.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'library\bootstrap-5.2.2-dist\css\bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'library/style.css' %}">
+</head>
+<body>
+
+<aside>
+    <ul>
+        <li><a class="btn btn-secondary" href="{% url 'book-list' %}">Библиотека</a></li>
+        <li><a class="btn btn-secondary" href="{% url 'create-book' %}">Добавить книгу</a></li>
+    </ul>
+</aside>
+
+<div id="content">
+    {% block content %}На этой странице еще нет контента...{% endblock %}
+</div>
+
+</body>
+</html>

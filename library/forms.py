@@ -1,4 +1,4 @@
-from django.forms import ModelForm, TextInput, NumberInput, Form
+from django.forms import ModelForm, TextInput, NumberInput
 from .models import Book
 
 
@@ -23,6 +23,15 @@ class BookForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Год издания',
             }),
+        }
+        error_messages = {
+            'publish_year': {
+                'min_value': 'Пожалуйста, укажите год больше %(limit_value)s включительно :)',
+                'max_value': 'Пожалуйста, укажите год меньше %(limit_value)s включительно :)',
+            },
+            'cost': {
+                'min_value': 'Пожалуйста, введите цену больше %(limit_value)s включительно :)'
+            }
         }
 
 

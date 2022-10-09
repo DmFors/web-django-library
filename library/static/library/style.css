@@ -1,0 +1,51 @@
+#content{
+    margin: 0 20% 0 20%;
+}
+
+aside{
+    float: left;
+    width: 15%;
+    height: 100vh;
+    background: #b3ffa3;
+}
+aside ul{
+    list-style: none;
+    padding: 0;
+}
+aside li{
+    margin: 10px 10px;
+}
+aside a{
+    width: 100%;
+}
+
+form {
+    margin: 20px 0;
+    text-align: center;
+}
+form * {
+    margin: 15px 0;
+}
+form button{
+    width: 100%;
+}
+
+.book-card a{
+    margin: 10px 0;
+}
+
+#pagination{
+    font-size: large;
+}
+
+#pagination .btn{
+    padding: 0.1em 0.4em;
+}
+
+#pagination #page-count{
+
+}
+
+#pagination #page-amount{
+    float: right;
+}

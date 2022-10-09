@@ -1,0 +1,14 @@
+{% extends 'library/book_base_form.html' %}
+
+{% block title %}Добавление книги{% endblock %}
+
+{% block form-body %}
+    <h1>Добавление книги</h1>
+
+    {% for field in form %}
+        {{field}}
+    {% endfor %}
+
+    <button type="submit" class="btn btn-success">Добавить</button>
+
+{% endblock %}
