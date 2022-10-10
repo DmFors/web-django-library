@@ -2,9 +2,11 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
 from django.views.generic import CreateView
-from .forms import MyUserCreationForm, MyAuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login, logout
+from django.contrib.auth.models import Group
+
+from .forms import MyUserCreationForm, MyAuthenticationForm
 
 
 def redirect_library(request):
@@ -18,6 +20,7 @@ class RegisterUser(CreateView):
 
     def form_valid(self, form):
         user = form.save()
+        user.groups.add(Group.objects.get(name='users'))
         login(self.request, user)
         return redirect(self.success_url)
 

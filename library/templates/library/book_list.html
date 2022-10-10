@@ -10,11 +10,15 @@
                 Автор: {{ book.author }}<br>
                 Год издания: {{ book.publish_year }} г.<br>
                 Цена: {{ book.cost }} руб.<br>
-                <a class="btn btn-warning change-button" href="{% url 'update-book' book.id %}">Редактировать</a>
-                <a class="btn btn-danger change-button" href="{% url 'delete-book' book.id %}">Удалить</a>
+                {% for group in request.user.groups.all %}
+                    {% if group.name == 'admins' %}
+                        <a class="btn btn-warning change-button" href="{% url 'book-update' book.id %}">Редактировать</a>
+                        <a class="btn btn-danger change-button" href="{% url 'book-delete' book.id %}">Удалить</a>
+                    {% endif %}
+                {% endfor %}
             </div>
         {% empty %}
-            <div class="alert alert-warning"><h3>В библиотеку еще не добавлено ни одной книги.</h3></div>
+            <div class="alert alert-secondary"><h3>В библиотеку еще не добавлено ни одной книги.</h3></div>
         {% endfor %}
     </div>
 

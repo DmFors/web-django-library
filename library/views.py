@@ -1,13 +1,19 @@
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from . import models
 from . import forms
 
 
-class BookCreateView(CreateView):
+class BookCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Book
     form_class = forms.BookForm
     template_name_suffix = '_create_form'
+
+    login_url = 'login'
+
+    def has_permission(self):
+        return self.request.user.groups.filter(name__in=['users', 'admins']).exists()
 
 
 class BookListView(ListView):
@@ -19,12 +25,22 @@ class BookListView(ListView):
         return paginate
 
 
-class BookUpdateView(UpdateView):
+class BookUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = models.Book
     form_class = forms.BookForm
     template_name_suffix = '_update_form'
 
+    login_url = 'login'
 
-class BookDeleteView(DeleteView):
+    def has_permission(self):
+        return self.request.user.groups.filter(name='admins').exists()
+
+
+class BookDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = models.Book
-    success_url = reverse_lazy('library_home')
+    success_url = reverse_lazy('book-list')
+
+    login_url = 'login'
+
+    def has_permission(self):
+        return self.request.user.groups.filter(name='admins').exists()
