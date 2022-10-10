@@ -19,8 +19,18 @@
     <ul>
         <li><a class="btn btn-secondary" href="{% url 'book-list' %}">Библиотека</a></li>
         <li><a class="btn btn-secondary" href="{% url 'create-book' %}">Добавить книгу</a></li>
-        <li><a class="btn btn-secondary" href="{% url 'register' %}">Регистрация</a></li>
-        <li><a class="btn btn-secondary" href="#">Вход</a></li>
+        {% if request.user.is_authenticated %}
+            <li>
+                <div class="alert alert-secondary">
+                    <p>Вы вошли как: <b>{{ request.user.username }}</b></p>
+                    <a class="btn btn-secondary" href="{% url 'logout' %}">Выйти</a>
+                </div>
+            </li>
+
+        {% else %}
+            <li><a class="btn btn-secondary" href="{% url 'register' %}">Регистрация</a></li>
+            <li><a class="btn btn-secondary" href="{% url 'login'  %}">Авторизация</a></li>
+        {% endif %}
     </ul>
 </aside>
 

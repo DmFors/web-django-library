@@ -2,10 +2,13 @@
 
 {% block title %}Изменение книги{% endblock %}
 
+{% block form-header %}<h1>Изменение книги</h1>{% endblock %}
+
 {% block form-body %}
-    <h1>Изменение книги</h1>
+
     {% for field in form %}
         {{ field }}
     {% endfor %}
+
     <button type="submit" class="btn btn-success">Применить изменения</button>
 {% endblock %}

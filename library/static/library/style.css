@@ -20,16 +20,8 @@ aside a{
     width: 100%;
 }
 
-form {
-    margin: 20px 0;
-}
-
-form input {
-    margin: 15px 0;
-}
-
-.form-group{
-    margin-top: 0px;
+form .form-control, form button, form alert {
+    margin: 10px 0;
 }
 
 form button{
