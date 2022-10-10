@@ -1,8 +1,10 @@
-{% extends 'library/book_base_form.html' %}
+{% extends 'base_form.html' %}
 
 {% block title %}Удаление книги{% endblock %}
 
+{% block form-header %}<h1>Вы действительно хотите удалить книгу?</h1>{% endblock %}
+
 {% block form-body %}
-    <h1>Вы действительно хотите удалить книгу?</h1>
+
     <button type="submit" class="btn btn-danger">Удалить</button>
 {% endblock %}
