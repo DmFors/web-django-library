@@ -2,20 +2,22 @@
 {% block title %}Библиотека{% endblock %}
 {% block content %}
     <h1>Библиотека</h1>
+
     <div id="books">
         {% for book in page_obj %}
-        <div class="alert alert-primary book-card">
-            <h3>{{ book.name }}</h3>
-            Автор: {{ book.author }}<br>
-            Год издания: {{ book.publish_year }} г.<br>
-            Цена: {{ book.cost }} руб.<br>
-            <a class="btn btn-warning change-button" href="{% url 'update-book' book.id %}">Редактировать</a>
-            <a class="btn btn-danger change-button" href="{% url 'delete-book' book.id %}">Удалить</a>
-        </div>
-    {% empty %}
-        <div class="alert alert-warning"><h3>В библиотеку еще не добавлено ни одной книги.</h3></div>
-    {% endfor %}
+            <div class="alert alert-primary book-card">
+                <h3>{{ book.name }}</h3>
+                Автор: {{ book.author }}<br>
+                Год издания: {{ book.publish_year }} г.<br>
+                Цена: {{ book.cost }} руб.<br>
+                <a class="btn btn-warning change-button" href="{% url 'update-book' book.id %}">Редактировать</a>
+                <a class="btn btn-danger change-button" href="{% url 'delete-book' book.id %}">Удалить</a>
+            </div>
+        {% empty %}
+            <div class="alert alert-warning"><h3>В библиотеку еще не добавлено ни одной книги.</h3></div>
+        {% endfor %}
     </div>
+
     <div id="pagination" class="alert alert-secondary">
         <span id="page-count">
             {% if page_obj.has_previous %}
@@ -33,6 +35,5 @@
             <a href="?paginate_by=2" class="btn btn-secondary">2</a> <|>
             <a href="?paginate_by=5" class="btn btn-secondary">5</a>
         </span>
-
     </div>
 {% endblock %}

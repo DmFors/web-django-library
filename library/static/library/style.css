@@ -8,6 +8,7 @@ aside{
     height: 100vh;
     background: #b3ffa3;
 }
+
 aside ul{
     list-style: none;
     padding: 0;
@@ -21,11 +22,16 @@ aside a{
 
 form {
     margin: 20px 0;
-    text-align: center;
 }
-form * {
+
+form input {
     margin: 15px 0;
 }
+
+.form-group{
+    margin-top: 0px;
+}
+
 form button{
     width: 100%;
 }

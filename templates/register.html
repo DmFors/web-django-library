@@ -1,0 +1,13 @@
+{% extends 'base_form.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block form-body %}
+    {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+        </div>
+    {% endfor %}
+    <button class="btn btn-success">Регистрация</button>
+{% endblock %}

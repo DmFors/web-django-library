@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from . import views
+from .views import RegisterUser
 
 urlpatterns = [
     path('', views.redirect_library),
     path('library/', include('library.urls')),
+    path('register/', RegisterUser.as_view(), name='register'),
     path('admin/', admin.site.urls),
 ]

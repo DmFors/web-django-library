@@ -33,5 +33,3 @@ class BookForm(ModelForm):
                 'min_value': 'Пожалуйста, введите цену больше %(limit_value)s включительно :)'
             }
         }
-
-
