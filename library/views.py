@@ -1,11 +1,11 @@
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from . import models
 from . import forms
 
 
-class BookCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class BookCreateView(PermissionRequiredMixin, CreateView):
     model = models.Book
     form_class = forms.BookForm
     template_name_suffix = '_create_form'
@@ -13,7 +13,11 @@ class BookCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     login_url = 'login'
 
     def has_permission(self):
-        return self.request.user.groups.filter(name__in=['users', 'admins']).exists()
+        try:
+            role = self.request.session['role']
+        except KeyError:
+            role = 0
+        return role > 0
 
 
 class BookListView(ListView):
@@ -25,7 +29,7 @@ class BookListView(ListView):
         return paginate
 
 
-class BookUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class BookUpdateView(PermissionRequiredMixin, UpdateView):
     model = models.Book
     form_class = forms.BookForm
     template_name_suffix = '_update_form'
@@ -33,14 +37,22 @@ class BookUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     login_url = 'login'
 
     def has_permission(self):
-        return self.request.user.groups.filter(name='admins').exists()
+        try:
+            role = self.request.session['role']
+        except KeyError:
+            role = 0
+        return role == 2
 
 
-class BookDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class BookDeleteView(PermissionRequiredMixin, DeleteView):
     model = models.Book
     success_url = reverse_lazy('book-list')
 
     login_url = 'login'
 
     def has_permission(self):
-        return self.request.user.groups.filter(name='admins').exists()
+        try:
+            role = self.request.session['role']
+        except KeyError:
+            role = 0
+        return role == 2

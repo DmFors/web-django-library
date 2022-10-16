@@ -1,11 +1,9 @@
-from django.shortcuts import redirect
-from django.urls import reverse, reverse_lazy
 from .models import User
-
 from django.views.generic import CreateView, FormView
-from django.contrib.auth import logout
-
 from .forms import MyUserCreationForm, MyAuthenticationForm
+
+from django.shortcuts import redirect
+from django.urls import reverse
 
 
 def redirect_library(request):
@@ -18,7 +16,9 @@ class RegisterUser(CreateView):
     success_url = 'book-list'
 
     def form_valid(self, form):
-        form.save()
+        user = form.save()
+        self.request.session['username'] = user.username
+        self.request.session['role'] = user.role
         return redirect(self.success_url)
 
 
@@ -47,5 +47,9 @@ class LoginUser(FormView):
 
 
 def logout_user(request):
-    logout(request)
+    try:
+        del request.session['username']
+        del request.session['role']
+    except KeyError:
+        pass
     return redirect('login')
