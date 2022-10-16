@@ -1,25 +1,25 @@
-from django.forms import ModelForm, TextInput, NumberInput
+from django import forms
 from .models import Book
 
 
-class BookForm(ModelForm):
+class BookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ['name', 'author', 'cost', 'publish_year']
         widgets = {
-            'name': TextInput(attrs={
+            'name': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Название книги',
             }),
-            'author': TextInput(attrs={
+            'author': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Автор',
             }),
-            'cost': NumberInput(attrs={
+            'cost': forms.NumberInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Цена',
             }),
-            'publish_year': NumberInput(attrs={
+            'publish_year': forms.NumberInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Год издания',
             }),

@@ -1,10 +1,9 @@
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
+from .models import User
 
-from django.views.generic import CreateView
-from django.contrib.auth.views import LoginView
-from django.contrib.auth import login, logout
-from django.contrib.auth.models import Group
+from django.views.generic import CreateView, FormView
+from django.contrib.auth import logout
 
 from .forms import MyUserCreationForm, MyAuthenticationForm
 
@@ -19,18 +18,32 @@ class RegisterUser(CreateView):
     success_url = 'book-list'
 
     def form_valid(self, form):
-        user = form.save()
-        user.groups.add(Group.objects.get(name='users'))
-        login(self.request, user)
+        form.save()
         return redirect(self.success_url)
 
 
-class LoginUser(LoginView):
+class LoginUser(FormView):
     form_class = MyAuthenticationForm
     template_name = 'main/login.html'
 
     def get_success_url(self):
-        return reverse_lazy('book-list')
+        return reverse('book-list')
+
+    def form_valid(self, form):
+        form_data = form.cleaned_data
+        try:
+            user = User.objects.get(username=form_data['username'])
+        except User.DoesNotExist:
+            form.add_error(None, 'Неверный логин!')
+            return super().form_invalid(form)
+
+        if user.check_password(form_data['password']):
+            self.request.session['username'] = user.username
+            self.request.session['role'] = user.role
+            return super().form_valid(form)
+        else:
+            form.add_error(None, 'Неверный пароль!')
+            return super().form_invalid(form)
 
 
 def logout_user(request):
