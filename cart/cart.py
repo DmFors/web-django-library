@@ -53,10 +53,10 @@ class Cart(object):
         for book in cart_books:
             self.cart[str(book.id)]['book'] = book
 
-        # Перебор элементов в корзине, добавление поля total_price
+        # Перебор элементов в корзине, добавление поля total_cost
         for item in self.cart.values():
             item['cost'] = Decimal(item['cost'])
-            item['total_price'] = item['cost'] * item['quantity']
+            item['total_cost'] = item['cost'] * item['quantity']
             yield item
 
     def __len__(self):
@@ -64,12 +64,11 @@ class Cart(object):
 
     def get_total_quantity(self):
         """Общее количество книг в корзине"""
-        self.get_total_price()
         return sum(item['quantity'] for item in self.cart.values())
 
-    def get_total_price(self):
+    def get_total_cost(self):
         """Полная стоимость корзины"""
-        return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
+        return sum(Decimal(item['cost']) * item['quantity'] for item in self.cart.values())
 
     def clear(self):
         """Удаление корзины из сессии"""

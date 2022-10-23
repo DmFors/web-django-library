@@ -1,0 +1,46 @@
+{% extends 'base_library.html' %}
+{% block title %}Корзина{% endblock %}
+{% block content %}
+    <h1>Ваша корзина</h1>
+    {% if not cart %}
+        <h3>Ваша корзина сейчас пуста...</h3>
+    {% else %}
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr class="table-secondary">
+                    <th>Книга</th>
+                    <th>Количество</th>
+                    <th>Цена за шт</th>
+                    <th>Цена</th>
+                    <th>Убрать из корзины</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                    {% with book=item.book %}
+                        <tr>
+                            <td>{{ book.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.cost }}₽</td>
+                            <td>{{ item.total_cost }}₽</td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <a href="{% url 'cart_remove' book.id %}" class="btn btn-danger">Убрать</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endwith %}
+                {% endfor %}
+                <tr class="table-primary">
+                    <td>Итого</td>
+                    <td colspan="3"></td>
+                    <td>{{ cart.get_total_cost }}₽</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'book_list' %}" class="btn btn-primary">Продолжить покупки</a>
+            <a href="#" class="btn btn-success">Оформить заказ</a>
+        </div>
+    {% endif %}
+{% endblock %}

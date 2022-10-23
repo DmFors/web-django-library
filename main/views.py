@@ -7,13 +7,13 @@ from django.urls import reverse
 
 
 def redirect_library(request):
-    return redirect('book-list', permanent=True)
+    return redirect('book_list', permanent=True)
 
 
 class RegisterUser(CreateView):
     form_class = MyUserCreationForm
     template_name = 'main/register.html'
-    success_url = 'book-list'
+    success_url = 'book_list'
 
     def form_valid(self, form):
         user = form.save()
@@ -27,7 +27,7 @@ class LoginUser(FormView):
     template_name = 'main/login.html'
 
     def get_success_url(self):
-        return reverse('book-list')
+        return reverse('book_list')
 
     def form_valid(self, form):
         form_data = form.cleaned_data
@@ -50,6 +50,7 @@ def logout_user(request):
     try:
         del request.session['username']
         del request.session['role']
+        del request.session['cart']
     except KeyError:
         pass
     return redirect('login')
