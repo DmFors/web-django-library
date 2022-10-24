@@ -1,27 +1,17 @@
 {% extends 'base_library.html' %}
 {% block title %}Оформление заказа{% endblock %}
 {% block content %}
-    <h1>Оформление заказа</h1>
-    <h3>Ваш заказ</h3>
-    <table class="table table-sm table-bordered">
-        {% for item in cart %}
-            <tr>
-                <td>
-                {{ item.quantity }} x {{ item.book.name }}
-                </td>
-                <td>{{ item.total_cost }}₽</td>
-            </tr>
-        {% endfor %}
-        <tr class="table-success">
-            <td colspan="3">Итого: {{ cart.get_total_cost }}₽</td>
-        </tr>
-    </table>
+<h1>Оформление заказа</h1>
+<h3>Ваш заказ</h3>
+{% with order=cart %}
+    {% include 'orders/order_detail.html' %}
+{% endwith %}
 
-    <form class="form" method="post">
-        {% csrf_token %}
-        {% for field in form %}
-            {{field}}
-        {% endfor %}
-        <button type="submit" class="btn btn-success">Оформить заказ</button>
-    </form>
+<form class="form" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    {{field}}
+    {% endfor %}
+    <button type="submit" class="btn btn-success">Оформить заказ</button>
+</form>
 {% endblock %}

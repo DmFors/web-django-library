@@ -7,7 +7,7 @@ class OrderCreateForm(forms.ModelForm):
         model = Order
         fields = ['first_name', 'address', 'city']
         widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ваше имя'}),
-            'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ваш адрес'}),
-            'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ваш город'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя (Кто принимает заказ?)'}),
+            'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Адрес доставки'}),
+            'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Город доставки'}),
         }

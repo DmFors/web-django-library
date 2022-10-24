@@ -17,7 +17,11 @@ class Order(models.Model):
         return f'Order {self.id}'
 
     def get_total_cost(self):
-        return sum(item.get_cost() for item in self.items.all())
+        return sum(item.total_cost() for item in self.items.all())
+
+    def __iter__(self):
+        for order_item in self.items.all():
+            yield order_item
 
 
 class OrderItem(models.Model):
@@ -29,5 +33,5 @@ class OrderItem(models.Model):
     def __str__(self):
         return str(self.id)
 
-    def get_cost(self):
+    def total_cost(self):
         return self.cost * self.quantity
