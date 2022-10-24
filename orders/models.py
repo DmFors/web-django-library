@@ -5,7 +5,7 @@ from library.models import Book
 
 
 class Order(models.Model):
-    username = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
+    username = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders', null=True)
     first_name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)

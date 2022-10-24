@@ -1,0 +1,15 @@
+{% extends 'base_library.html' %}
+{% block title %}Ваши заказы{% endblock %}
+{% block content %}
+    <h1>Ваши заказы</h1>
+    {% for order in object_list %}
+        <div class="alert alert-primary">
+            <h3>Заказ <strong>{{ order.id }}</strong></h3>
+            {% for item in order.items.all %}
+                <p>{{ item.book }}</p>
+            {% endfor %}
+            {{ order.created }}
+            {{ order.get_total_cost }}
+        </div>
+    {% endfor %}
+{% endblock %}
