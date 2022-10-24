@@ -17,10 +17,10 @@
             <a class="btn btn-danger change-button" href="{% url 'book_delete' book.id %}">Удалить</a>
         </div>
         {% endif %}
-        <form action="{% url 'cart_add' book.id %}" method="post">
+        <form action="{% url 'cart_add' book.id %}" method="post" class="form-inline">
             {% csrf_token %}
-            {{ cart_add_book_form.quantity }}
             <input type="submit" value="В корзину" class="btn btn-success">
+            {{ cart_add_book_form.quantity }}
         </form>
 
 
