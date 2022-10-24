@@ -1,6 +1,5 @@
 from django.conf import settings
 from library.models import Book
-from decimal import Decimal
 
 
 class Cart(object):
@@ -55,7 +54,7 @@ class Cart(object):
 
         # Перебор элементов в корзине, добавление поля total_cost
         for item in self.cart.values():
-            item['cost'] = Decimal(item['cost'])
+            item['cost'] = float(item['cost'])
             item['total_cost'] = item['cost'] * item['quantity']
             yield item
 
@@ -68,7 +67,7 @@ class Cart(object):
 
     def get_total_cost(self):
         """Полная стоимость корзины"""
-        return sum(Decimal(item['cost']) * item['quantity'] for item in self.cart.values())
+        return sum(float(item['cost']) * item['quantity'] for item in self.cart.values())
 
     def clear(self):
         """Удаление корзины из сессии"""
