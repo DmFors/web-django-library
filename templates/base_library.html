@@ -23,9 +23,12 @@
             <li><a class="btn btn-secondary" href="{% url 'order_list' %}">Мои заказы</a></li>
             <li><a class="btn btn-secondary" href="{% url 'book_create' %}">Добавить книгу</a></li>
             <li>
-                <div class="alert alert-secondary">
+                <div class="alert alert-secondary text-center">
                     <p>Вы вошли как: <b>{{ request.session.username }}</b></p>
-                    <a class="btn btn-secondary" href="{% url 'logout' %}">Выйти</a>
+                    <div class="btn-group-vertical">
+                        <a class="btn btn-secondary" href="{% url 'user_update' request.session.user_id %}">Личный кабинет</a>
+                        <a class="btn btn-secondary" href="{% url 'logout' %}">Выйти</a>
+                    </div>
                 </div>
             </li>
         {% else %}

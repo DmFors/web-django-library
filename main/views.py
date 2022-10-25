@@ -1,6 +1,6 @@
 from .models import User
-from django.views.generic import CreateView, FormView
-from .forms import MyUserCreationForm, MyAuthenticationForm
+from django.views.generic import CreateView, UpdateView, FormView
+from .forms import MyUserCreationForm, MyUserUpdateForm, MyAuthenticationForm
 
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -17,6 +17,7 @@ class RegisterUser(CreateView):
 
     def form_valid(self, form):
         user = form.save()
+        self.request.session['user_id'] = user.username
         self.request.session['username'] = user.username
         self.request.session['role'] = user.role
         return redirect(self.success_url)
@@ -38,6 +39,7 @@ class LoginUser(FormView):
             return super().form_invalid(form)
 
         if user.check_password(form_data['password']):
+            self.request.session['user_id'] = user.id
             self.request.session['username'] = user.username
             self.request.session['role'] = user.role
             return super().form_valid(form)
@@ -48,9 +50,16 @@ class LoginUser(FormView):
 
 def logout_user(request):
     try:
+        del request.session['user_id']
         del request.session['username']
         del request.session['role']
         del request.session['cart']
     except KeyError:
         pass
     return redirect('login')
+
+
+class UserUpdateView(UpdateView):
+    model = User
+    form_class = MyUserUpdateForm
+    template_name_suffix = '_update_form'

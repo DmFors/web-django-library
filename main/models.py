@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 
 
 def validate_role(value):
@@ -17,3 +18,6 @@ class User(models.Model):
     def check_password(self, password):
         return self.password == password
 
+    @staticmethod
+    def get_absolute_url():
+        return reverse('book_list')
