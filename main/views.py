@@ -1,6 +1,7 @@
 from .models import User
 from django.views.generic import CreateView, UpdateView, FormView
 from .forms import MyUserCreationForm, MyUserUpdateForm, MyAuthenticationForm
+from django.contrib.auth.hashers import make_password
 
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -16,8 +17,12 @@ class RegisterUser(CreateView):
     success_url = 'book_list'
 
     def form_valid(self, form):
-        user = form.save()
-        self.request.session['user_id'] = user.username
+        user = form.save(commit=False)
+        password = form.cleaned_data['password']
+        user.password = make_password(password)
+        user.save()
+
+        self.request.session['user_id'] = user.id
         self.request.session['username'] = user.username
         self.request.session['role'] = user.role
         return redirect(self.success_url)
@@ -63,3 +68,11 @@ class UserUpdateView(UpdateView):
     model = User
     form_class = MyUserUpdateForm
     template_name_suffix = '_update_form'
+    success_url = 'book_list'
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        password = form.cleaned_data['password']
+        user.password = make_password(password)
+        user.save()
+        return redirect(self.success_url)
