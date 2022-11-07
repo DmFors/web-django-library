@@ -53,7 +53,7 @@ class BookUpdateView(PermissionRequiredMixin, UpdateView):
 
 class BookDeleteView(PermissionRequiredMixin, DeleteView):
     model = models.Book
-    success_url = reverse_lazy('book-list')
+    success_url = reverse_lazy('book_list')
 
     login_url = 'login'
 
