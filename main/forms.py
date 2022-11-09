@@ -5,7 +5,8 @@ from .models import User
 class MyUserCreationForm(forms.ModelForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={
         'class': 'form-control',
-        'placeholder': 'Введите логин'
+        'placeholder': 'Введите логин',
+        'autocomplete': 'off',
     }))
 
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={
@@ -20,7 +21,8 @@ class MyUserCreationForm(forms.ModelForm):
 
     first_name = forms.CharField(label='Имя пользователя', widget=forms.TextInput(attrs={
         'class': 'form-control',
-        'placeholder': 'Введите ваше имя'
+        'placeholder': 'Введите ваше имя',
+        'autocomplete': 'off',
     }))
 
     class Meta:
@@ -31,7 +33,8 @@ class MyUserCreationForm(forms.ModelForm):
 class MyUserUpdateForm(forms.ModelForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={
         'class': 'form-control',
-        'placeholder': 'Введите новый логин'
+        'placeholder': 'Введите новый логин',
+        'autocomplete': 'off',
     }))
 
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={
@@ -46,7 +49,8 @@ class MyUserUpdateForm(forms.ModelForm):
 
     first_name = forms.CharField(label='Имя пользователя', widget=forms.TextInput(attrs={
         'class': 'form-control',
-        'placeholder': 'Введите новое имя'
+        'placeholder': 'Введите новое имя',
+        'autocomplete': 'off',
     }))
 
     class Meta:

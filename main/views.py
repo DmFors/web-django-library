@@ -1,3 +1,5 @@
+from django.http import JsonResponse
+
 from .models import User
 from django.views.generic import CreateView, UpdateView, FormView
 from .forms import MyUserCreationForm, MyUserUpdateForm, MyAuthenticationForm
@@ -26,6 +28,14 @@ class RegisterUser(CreateView):
         self.request.session['username'] = user.username
         self.request.session['role'] = user.role
         return redirect(self.success_url)
+
+
+def validate_username(request):
+    username = request.GET.get('username', None)
+    response = {
+        'is_taken': User.objects.filter(username__iexact=username).exists()
+    }
+    return JsonResponse(response)
 
 
 class LoginUser(FormView):

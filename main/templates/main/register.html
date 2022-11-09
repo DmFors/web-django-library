@@ -13,3 +13,38 @@
     {% endfor %}
     <button class="btn btn-success">Зарегистрироваться</button>
 {% endblock %}
+
+{% block javascript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(
+            function () {
+                $('#id_username').on(
+                    'input',
+                    function () {
+                        $.ajax({
+                            data: $(this).serialize(), // данные из формы
+                            url: "{% url 'validate_username' %}", // url обработчика поля
+                            success: function (response) {
+                                if (response.is_taken == true) {
+                                    $('#id_username').removeClass('is-valid').addClass('is-invalid');
+                                    if (!$('#id_username').next('#usernameError').length) {
+                                        $('#id_username').after('<div class="invalid-feedback d-block" id="usernameError">'
+                                                                + 'Это имя пользователя уже занято!</div>')
+                                    }
+                                } else {
+                                    $('#id_username').removeClass('is-invalid').addClass('is-valid');
+                                    $('#usernameError').remove();
+                                }
+                            },
+                            error: function (response) {
+                                console.log(response.response.JSON.errors)
+                            }
+                        })
+                    }
+                );
+                return false;
+            }
+        )
+    </script>
+{% endblock %}
