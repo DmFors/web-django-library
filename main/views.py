@@ -37,6 +37,11 @@ def validate_username(request):
     }
     return JsonResponse(response)
 
+# def validate_password(request):
+#     password = request.GET.get('password', None)
+#     responce = {
+#         'is_correct_length': len(password)
+#     }
 
 class LoginUser(FormView):
     form_class = MyAuthenticationForm

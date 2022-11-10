@@ -28,19 +28,43 @@
                             success: function (response) {
                                 if (response.is_taken == true) {
                                     $('#id_username').removeClass('is-valid').addClass('is-invalid');
-                                    if (!$('#id_username').next('#usernameError').length) {
-                                        $('#id_username').after('<div class="invalid-feedback d-block" id="usernameError">'
+                                    if (!$('#id_username').next('#username_error').length) {
+                                        $('#id_username').after('<div class="invalid-feedback d-block" id="username_error">'
                                                                 + 'Это имя пользователя уже занято!</div>')
                                     }
                                 } else {
                                     $('#id_username').removeClass('is-invalid').addClass('is-valid');
-                                    $('#usernameError').remove();
+                                    $('#username_error').remove();
                                 }
                             },
                             error: function (response) {
                                 console.log(response.response.JSON.errors)
                             }
                         })
+                    }
+                );
+                return false;
+            }
+        )
+    </script>
+    <script>
+        $(document).ready(
+            function () {
+                $('#id_password').on(
+                    'input',
+                    function () {
+                        var password_length = $('#id_password').val().length;
+                        if (password_length > 6) {
+                            $('#id_password').removeClass('is-invalid').addClass('is-valid');
+                            $('#password_error').remove();
+                        } else {
+                            $('#id_password').removeClass('is-valid').addClass('is-invalid');
+                            console.log($('#id_password').next($('#password_error').length));
+                            if (!$('#id_password').next($('#password_error')).length) {
+                                $('#id_password').after('<div class="invalid-feedback d-block" id="password_error">'
+                                                                + 'Пароль должен содержать более 6 символов!</div>');
+                            }
+                        }
                     }
                 );
                 return false;
