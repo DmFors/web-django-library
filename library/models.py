@@ -11,7 +11,7 @@ class Book(models.Model):
 
     @staticmethod
     def get_absolute_url():
-        return reverse('book-list')
+        return reverse('book_list')
 
     class Meta:
         ordering = ['name']
