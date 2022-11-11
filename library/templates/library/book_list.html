@@ -1,7 +1,13 @@
 {% extends 'base_library.html' %}
+{% load my_tags %}
+
 {% block title %}Библиотека{% endblock %}
 {% block content %}
 <h1>Библиотека</h1>
+
+<form method="get">
+    <input type="text" name="q" placeholder="Поиск по названию...">
+</form>
 
 <div id="books">
     {% for book in page_obj %}
@@ -29,25 +35,35 @@
     <div class="alert alert-secondary"><h3>В библиотеку еще не добавлено ни одной книги.</h3></div>
     {% endfor %}
 </div>
-
 <div id="pagination" class="alert alert-secondary">
         <span id="page-count">
             {% if page_obj.has_previous %}
-            <a href="?paginate_by={{ paginator.per_page }}&page={{ page_obj.previous_page_number }}"
+
+            <a href="?{% return_get_params page=page_obj.previous_page_number %}"
                class="btn btn-secondary"><</a>
             {% endif %}
             <span>
                 Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
             </span>
             {% if page_obj.has_next %}
-                <a href="?paginate_by={{ paginator.per_page }}&page={{ page_obj.next_page_number }}"
+                <a href="?{% return_get_params page=page_obj.next_page_number %}"
                    class="btn btn-secondary">></a>
             {% endif %}
         </span>
     <span id="page-amount">
             Отобразить на странице:
-            <a href="?paginate_by=2" class="btn btn-secondary">2</a> <|>
-            <a href="?paginate_by=5" class="btn btn-secondary">5</a>
+                <select onchange="javascript:paginate(this)">
+                    <option value="" selected disabled hidden></option>
+                    <option value="?{% return_get_params paginate_by=2 page='' %}">2</option>
+                    <option value="?{% return_get_params paginate_by=3 page='' %}">3</option>
+                    <option value="?{% return_get_params paginate_by=5 page='' %}">5</option>
+                </select>
         </span>
+    <script>
+        function paginate(option) {
+            console.log(option.value);
+            window.location.href = option.value;
+        }
+    </script>
 </div>
 {% endblock %}

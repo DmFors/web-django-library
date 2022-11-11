@@ -35,6 +35,13 @@ class BookListView(ListView):
         paginate = self.request.GET.get("paginate_by", self.paginate_by)
         return paginate
 
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        queryset = self.model.objects.all()
+        if query:
+            queryset = queryset.filter(name__icontains=query)
+        return queryset
+
 
 class BookUpdateView(PermissionRequiredMixin, UpdateView):
     model = models.Book
