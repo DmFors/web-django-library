@@ -3,54 +3,55 @@
 
 {% block title %}Библиотека{% endblock %}
 {% block content %}
-<h1>Библиотека</h1>
+    <h1>Библиотека</h1>
+    <!--Search input-->
+    <form method="get">
+        <input type="text" name="q" placeholder="Поиск по названию..." class="form-control">
+    </form>
+    <!--List of books-->
+    <div id="books">
+        {% for book in page_obj %}
+            <div class="alert alert-primary book-card">
+                <h3>{{ book.name }}</h3>
+                Автор: {{ book.author }}<br>
+                Год издания: {{ book.publish_year }} г.<br>
+                Цена: {{ book.cost }}₽<br>
+                <!--Buttons-->
+                {% if request.session.role == 2 %}
+                    <div class="btn-group" role="group" aria-label="menu">
+                        <a class="btn btn-warning change-button" href="{% url 'book_update' book.id %}">Редактировать</a>
+                        <a class="btn btn-danger change-button" href="{% url 'book_delete' book.id %}">Удалить</a>
+                    </div>
+                {% endif %}
 
-<form method="get">
-    <input type="text" name="q" placeholder="Поиск по названию...">
-</form>
-
-<div id="books">
-    {% for book in page_obj %}
-    <div class="alert alert-primary book-card">
-        <h3>{{ book.name }}</h3>
-        Автор: {{ book.author }}<br>
-        Год издания: {{ book.publish_year }} г.<br>
-        Цена: {{ book.cost }}₽<br>
-
-        {% if request.session.role == 2 %}
-        <div class="btn-group" role="group" aria-label="menu">
-            <a class="btn btn-warning change-button" href="{% url 'book_update' book.id %}">Редактировать</a>
-            <a class="btn btn-danger change-button" href="{% url 'book_delete' book.id %}">Удалить</a>
-        </div>
-        {% endif %}
-        <form action="{% url 'cart_add' book.id %}" method="post" class="form-inline">
-            {% csrf_token %}
-            <input type="submit" value="В корзину" class="btn btn-success">
-            {{ cart_add_book_form.quantity }}
-        </form>
-
-
+                <form action="{% url 'cart_add' book.id %}" method="post" class="form-inline">
+                    {% csrf_token %}
+                    <input type="submit" value="В корзину" class="btn btn-success">
+                    {{ cart_add_book_form.quantity }}
+                </form>
+            </div>
+        {% empty %}
+            <div class="alert alert-secondary"><h3>В библиотеку еще не добавлено ни одной книги.</h3></div>
+        {% endfor %}
     </div>
-    {% empty %}
-    <div class="alert alert-secondary"><h3>В библиотеку еще не добавлено ни одной книги.</h3></div>
-    {% endfor %}
-</div>
-<div id="pagination" class="alert alert-secondary">
-        <span id="page-count">
-            {% if page_obj.has_previous %}
-
-            <a href="?{% return_get_params page=page_obj.previous_page_number %}"
-               class="btn btn-secondary"><</a>
-            {% endif %}
-            <span>
-                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
-            </span>
-            {% if page_obj.has_next %}
-                <a href="?{% return_get_params page=page_obj.next_page_number %}"
-                   class="btn btn-secondary">></a>
-            {% endif %}
-        </span>
-    <span id="page-amount">
+    <!--Pagination-->
+    <div class="alert alert-secondary d-flex flex-row justify-content-between align-items-center">
+        <nav>
+            <ul class="pagination mb-0">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a href="?{% return_get_params page=page_obj.previous_page_number %}" class="page-link"><</a></li>
+                {% else %}
+                    <li class="page-item disabled"><a href="#" class="page-link"><</a></li>
+                {% endif %}
+                <li class="page-item"><a href="#" class="page-link">{{ page_obj.number }}</a></li>
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a href="?{% return_get_params page=page_obj.next_page_number %}" class="page-link">></a></li>
+                {% else %}
+                    <li class="page-item disabled"><a href="#" class="page-link">></a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <span class="">
             Отобразить на странице:
                 <select onchange="javascript:paginate(this)">
                     <option value="" selected disabled hidden></option>
@@ -59,11 +60,14 @@
                     <option value="?{% return_get_params paginate_by=5 page='' %}">5</option>
                 </select>
         </span>
-    <script>
-        function paginate(option) {
-            console.log(option.value);
-            window.location.href = option.value;
-        }
-    </script>
-</div>
+    </div>
+
+    {% block javascript %}
+        <script>
+            function paginate(option) {
+                console.log(option.value);
+                window.location.href = option.value;
+            }
+        </script>
+    {% endblock %}
 {% endblock %}
