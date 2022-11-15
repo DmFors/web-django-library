@@ -54,7 +54,8 @@
                     'input',
                     function () {
                         var password_length = $('#id_password').val().length;
-                        if (password_length > 6) {
+                        const min_pass_length = 5;
+                        if (password_length >= min_pass_length) {
                             $('#id_password').removeClass('is-invalid').addClass('is-valid');
                             $('#password_error').remove();
                         } else {
@@ -62,7 +63,7 @@
                             console.log($('#id_password').next($('#password_error').length));
                             if (!$('#id_password').next($('#password_error')).length) {
                                 $('#id_password').after('<div class="invalid-feedback d-block" id="password_error">'
-                                                                + 'Пароль должен содержать более 6 символов!</div>');
+                                                                + 'Пароль должен содержать более ' + min_pass_length + ' символов!</div>');
                             }
                         }
                     }

@@ -20,7 +20,7 @@
         <li><a class="btn btn-secondary" href="{% url 'book_list' %}">Библиотека</a></li>
         <li><a class="btn btn-secondary" href="{% url 'cart_detail' %}">Корзина</a></li>
         {% if request.session.role > 0 %}
-            <li><a class="btn btn-secondary" href="{% url 'order_list' %}">Мои заказы</a></li>
+            <li><a class="btn btn-secondary" href="{% url 'order_list' %}" id="id_my_orders">Мои заказы</a></li>
             <li><a class="btn btn-secondary" href="{% url 'book_create' %}">Добавить книгу</a></li>
             <li>
                 <div class="alert alert-secondary text-center">

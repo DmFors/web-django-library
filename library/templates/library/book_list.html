@@ -26,7 +26,7 @@
 
                 <form action="{% url 'cart_add' book.id %}" method="post" class="form-inline">
                     {% csrf_token %}
-                    <input type="submit" value="В корзину" class="btn btn-success">
+                    <input type="submit" value="В корзину" class="btn btn-success" id="id_add_cart">
                     {{ cart_add_book_form.quantity }}
                 </form>
             </div>
