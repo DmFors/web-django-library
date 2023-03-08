@@ -1,7 +1,5 @@
 tests.py
 
-.idea/
-
 ### Django ###
 *.log
 *.pot
@@ -10,6 +8,9 @@ __pycache__/
 local_settings.py
 db.sqlite3
 media
+.idea/
+static/
+db.sqlite
 
 ### Linux ###
 *~
